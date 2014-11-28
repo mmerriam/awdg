@@ -30,12 +30,15 @@ var config = {
     name: pkg.name,
     env: process.env.NODE_ENV || 'development',
     port: process.env.PORT || 2934,
-    root: path.normalize(path.join(__dirname ,'../..')),
+    root: path.normalize(path.join(__dirname, '../..')),
     session: {
         name: '_awdg',
         secret: 'i<3th3W3b',
         resave: false,
-        saveUninitialized: false
+        saveUninitialized: false,
+        cookie: {
+            maxAge: 60000
+        }
     },
     database: {
         uri: process.env.DATABASE_URI || 'mongodb://127.0.0.1/awdg',
