@@ -15,10 +15,15 @@ var Venue = mongoose.model('Venue');
 var form = require('express-form');
 var field = form.field;
 
+// route middleware to validate :name
+router.param('id', function(req, res, next, id) {
+    req.id = id;
+    next();
+});
 
 router.get('/venues', function(req, res, next) {
     res.render('venues/index', {
-        module: 'admin-venue',
+        module: 'venue',
         venues: Venue.find()
     });
 });
@@ -37,5 +42,16 @@ router.post('/venues', form(
         res.redirect('/venues');
     });
 });
+
+router.get('/venues/:id', function(req, res, next) {
+    res.render('venues/item', {
+        module: 'venue',
+        venue: Venue.findOne({
+            '_id': req.id
+        })
+    });
+});
+
+
 
 module.exports = router;

@@ -1,9 +1,16 @@
 {% extends "layouts/right-menu.html" %}
-{% block title %}Venue{% endblock %}
+{% block title %}
+    Venues
+{% endblock %}
 {% block content %}
-    <div class="venues-list">
+    <div class="admin clearfix">
+        {% include "views/venues/create.html" %}
+    </div>
+    <div class="list">
         {% for venue in venues %}
-            {% include "views/venues/list-item.html" %}
+            <a class="item" href="/venues/{{venue.id}}">
+                {% include "views/venues/list-item.html" %}
+            </a>
         {% endfor %}
     </div>
 {% endblock %}
