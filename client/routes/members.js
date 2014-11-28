@@ -18,21 +18,21 @@ var auth = awdg('client/routes/middleware/auth');
 
 
 router.get('/account/profile', auth.requiresLogin, function(req, res, next) {
-    res.render('members/account-profile',{
-        module:'members',
-        member:req.user
+    res.render('members/account-profile', {
+        module: 'members',
+        member: req.user
     });
 });
 router.get('/account/settings', auth.requiresLogin, function(req, res, next) {
-    res.render('members/account-settings',{
-        module:'members',
-        member:req.user
+    res.render('members/account-settings', {
+        module: 'members',
+        member: req.user
     });
 });
 router.get('/account/subscription', auth.requiresLogin, function(req, res, next) {
-    res.render('members/account-subscription',{
-        module:'members',
-        member:req.user
+    res.render('members/account-subscription', {
+        module: 'members',
+        member: req.user
     });
 });
 
@@ -41,14 +41,27 @@ router.get('/login', function(req, res, next) {
     res.render('members/login');
 });
 
+router.post('/login', passport.authenticate('local-login', {
+    successRedirect: '/account/profile',
+    failureRedirect: '/login',
+    failureFlash: true
+}));
+
 router.get('/join', function(req, res, next) {
     res.render('members/join');
 });
+
+
 
 router.post('/join', passport.authenticate('join', {
     successRedirect: '/account/profile',
     failureRedirect: '/join',
     failureFlash: true
 }));
+
+router.get('/logout', function(req, res) {
+    req.logout();
+    res.redirect('/');
+});
 
 module.exports = router;
