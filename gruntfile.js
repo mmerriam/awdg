@@ -22,10 +22,19 @@ module.exports = function(grunt) {
                     '<%= dir.publish %>/js/libs.min.js': [
                         '<%= dir.vendor.bower %>/jquery/dist/jquery.min.js',
                         '<%= dir.vendor.bower %>/bootstrap-sass-official/assets/javascripts/bootstrap.js',
-                        '<%= dir.vendor.bower %>/lodash/dist/lodash.min.js'
+                        '<%= dir.vendor.bower %>/lodash/dist/lodash.min.js',
+                        '<%= dir.vendor.bower %>/pickadate/lib/pickadate.js'
                     ]
                 }
             },
+            theme: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= dir.theme %>/javascripts',
+                    src: '**/*.js',
+                    dest: '<%= dir.publish %>/js'
+                }]
+            }
         },
 
         // stylesheet processing
@@ -45,7 +54,10 @@ module.exports = function(grunt) {
                     keepSpecialComments: 0
                 },
                 files: {
-                    '<%= dir.publish %>/<%= pkg.name %>.min.css': ['<%= dir.build %>/stylesheets/<%= pkg.name %>.css']
+                    '<%= dir.publish %>/<%= pkg.name %>.min.css': [
+                        '<%= dir.build %>/stylesheets/<%= pkg.name %>.css',
+                        '<%= dir.vendor.bower %>/pickadate/lib/themes/default.css'
+                    ]
                 }
             }
         },
