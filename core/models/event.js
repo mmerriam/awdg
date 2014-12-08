@@ -14,23 +14,27 @@ var stampIt = require('mongoose-stamp');
 
 var Event = new Schema({
     name: {
-            type: String,
-            required: true,
+        type: String,
+        required: true,
     },
-    slug:String,
-    date:{
-        start:{
+    slug: String,
+    date: {
+        start: {
             type: Date,
-            required:true,
+            required: true,
             default: Date.now
         },
-        end:Date,
+        end: Date,
     },
-    publishDate:Date,
+    publishDate: {
+        type: Date,
+        default: Date.now
+    },
     description: String,
-    featured:Boolean,
-    _venue:Schema.Types.ObjectId,
-    sponsors:Schema.Types.Mixed
+    featured: Boolean,
+    _venue: Schema.Types.ObjectId,
+    _speakers: Schema.Types.Mixed,
+    _sponsors: Schema.Types.Mixed
 }, {
     collection: 'events'
 });

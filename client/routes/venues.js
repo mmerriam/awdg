@@ -37,7 +37,7 @@ router.post('/venues', form(
 ), function(req, res, next) {
     var venue = new Venue(req.form);
     venue.save(function(err) {
-        if (err) return handleError(err);
+        // if (err) return handleError(err);
         res.redirect('/venues');
     });
 });
