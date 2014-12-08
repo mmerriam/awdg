@@ -46,7 +46,7 @@ router.get('/join', function(req, res, next) {
 });
 
 router.post('/join', passport.authenticate('join', {
-    successRedirect: '/account',
+    successRedirect: '/account/profile',
     failureRedirect: '/join',
     failureFlash: true
 }));
