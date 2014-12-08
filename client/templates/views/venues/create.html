@@ -1,33 +1,46 @@
-<div class="col-md-6">
-    <form role="form" method="post" action="/venues">
-        <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" class="form-control" placeholder="Location" id="name" name="name" required autofocus>
-        </div>
-        <div class="form-group">
-            <label for="url">URL</label>
-            <input type="text" class="form-control" placeholder="website" id="url" name="url" autofocus>
-        </div>
-        <div class="form-group">
-            <label for="phone">Phone</label>
-            <input type="text" class="form-control" placeholder="phone number" id="phone" name="phone" autofocus>
-        </div>
-        <div class="form-group">
-            <label for="address">Address</label>
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="full address" id="address" name="address" required autofocus>
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">validate</button>
-                </span>
-            </div>
+{% extends "layouts/two-column.html" %}
+{% block title %} Locations {% endblock %}
+{% block content %}
+<div class="row" >
+    <form role="form" method="post" action="/admin/venues/create">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" placeholder="Location" id="name" name="name" required autofocus>
+                </div>
+                <div class="form-group">
+                    <label for="url">URL</label>
+                    <input type="text" class="form-control" placeholder="website" id="url" name="url" autofocus>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="text" class="form-control" placeholder="phone number" id="phone" name="phone" autofocus>
+                </div>
+                <div class="form-group">
 
+                    <label for="address">Address</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="full address" id="address" name="address" required autofocus>
+                        <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">validate</button>
+                        </span>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label for="info">Extra Info</label>
+                    <textarea class="form-control" rows="4" name="info" id="info"></textarea>
+                </div>
+            </div>
+            <div class="col-md-6">
+
+            </div>
         </div>
-        <div class="form-group">
-            <label for="info">Extra Info</label>
-            <textarea class="form-control" rows="4" name="info" id="info"></textarea>
-        </div>
-        <div class="form-group">
-            <button class="btn btn-lg btn-primary" type="submit">Add Location</button>
-        </div>
+        <button class="btn btn-lg btn-primary" type="submit">Add Location</button>
     </form>
 </div>
+{% endblock %}
+{% block sidebar %}
+<!-- <h2>Sidebar</h2> -->
+{% endblock %}
