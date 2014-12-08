@@ -31,12 +31,12 @@ module.exports = function(passport) {
     });
 
     // login
-    passport.use('login', new LocalStrategy({
+    passport.use('local-login', new LocalStrategy({
             usernameField: 'email',
             passReqToCallback: true
         },
         function(req, email, password, done) {
-
+            console.log(email);
             Member.findOne({
                     'email': email
                 },
@@ -48,11 +48,7 @@ module.exports = function(passport) {
 
                     member.authenticate(password, function(err, isMatch) {
                         if (isMatch) {
-                            var time = 14 * 24 * 3600000;
-                            req.session.cookie.maxAge = time; //2 weeks
-                            req.session.cookie.expires = new Date(Date.now() + time);
-                            req.session.touch();
-                            return done(null, user, req.flash('success', 'Successfully logged in.'));
+                            return done(null, member, req.flash('success', 'Successfully logged in.'));
                         } else {
                             return done(null, false, req.flash('error', 'Invalid Password'));
                         }
@@ -62,14 +58,11 @@ module.exports = function(passport) {
         }));
 
     // join
-    passport.use('join', new LocalStrategy({
+    passport.use('local-join', new LocalStrategy({
             usernameField: 'email',
             passReqToCallback: true
         },
         function(req, email, password, done) {
-
-            console.log(email);
-
             var findOrCreateMember = function() {
 
                 Member.findOne({
@@ -89,10 +82,6 @@ module.exports = function(passport) {
 
                     member.save(function(err) {
                         if (err) return done(err, false, req.flash('error', 'Error saving member.'));
-                        var time = 14 * 24 * 3600000;
-                        req.session.cookie.maxAge = time; //2 weeks
-                        req.session.cookie.expires = new Date(Date.now() + time);
-                        req.session.touch();
                         return done(null, member, req.flash('success', 'Thanks for signing up!!'));
                     });
                 });

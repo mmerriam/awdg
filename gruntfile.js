@@ -22,10 +22,25 @@ module.exports = function(grunt) {
                     '<%= dir.publish %>/js/libs.min.js': [
                         '<%= dir.vendor.bower %>/jquery/dist/jquery.min.js',
                         '<%= dir.vendor.bower %>/bootstrap-sass-official/assets/javascripts/bootstrap.js',
-                        '<%= dir.vendor.bower %>/lodash/dist/lodash.min.js'
+                        '<%= dir.vendor.bower %>/lodash/dist/lodash.min.js',
+                        '<%= dir.vendor.bower %>/pickadate/lib/picker.js',
+                        '<%= dir.vendor.bower %>/pickadate/lib/picker.date.js',
+                        '<%= dir.vendor.bower %>/pickadate/lib/picker.time.js',
+                        '<%= dir.vendor.bower %>/pickadate/lib/legacy.js',
+                        '<%= dir.vendor.bower %>/typeahead/dist/typeahead.bundle.min.js',
+                        '<%= dir.vendor.bower %>/moment/moment.js',
+                        '<%= dir.vendor.bower %>/moment/moment-timezone.js'
                     ]
                 }
             },
+            theme: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= dir.theme %>/javascripts',
+                    src: '**/*.js',
+                    dest: '<%= dir.publish %>/js'
+                }]
+            }
         },
 
         // stylesheet processing
@@ -45,7 +60,13 @@ module.exports = function(grunt) {
                     keepSpecialComments: 0
                 },
                 files: {
-                    '<%= dir.publish %>/<%= pkg.name %>.min.css': ['<%= dir.build %>/stylesheets/<%= pkg.name %>.css']
+                    '<%= dir.publish %>/<%= pkg.name %>.min.css': [
+                        '<%= dir.build %>/stylesheets/<%= pkg.name %>.css',
+                        '<%= dir.vendor.bower %>/pickadate/lib/themes/classic.css',
+                        '<%= dir.vendor.bower %>/pickadate/lib/themes/classic.date.css',
+                        '<%= dir.vendor.bower %>/pickadate/lib/themes/classic.time.css',
+                        '<%= dir.vendor.bower %>/pickadate/lib/themes/rtl.css'
+                    ]
                 }
             }
         },
@@ -121,7 +142,7 @@ module.exports = function(grunt) {
             },
             scripts: {
                 files: ['<%= dir.theme %>/javascript/*'],
-                tasks: ['uglify:theme'],
+                tasks: ['uglify'],
             },
         },
         nodemon: {
