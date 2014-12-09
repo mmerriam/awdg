@@ -47,13 +47,13 @@ router.post('/login', passport.authenticate('local-login', {
     failureFlash: true
 }));
 
+
+
 router.get('/join', function(req, res, next) {
     res.render('members/join');
 });
 
-
-
-router.post('/join', passport.authenticate('join', {
+router.post('/join', passport.authenticate('local-join', {
     successRedirect: '/account/profile',
     failureRedirect: '/join',
     failureFlash: true
