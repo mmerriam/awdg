@@ -32,9 +32,12 @@ var Event = new Schema({
     },
     description: String,
     featured: Boolean,
-    _venue: Schema.Types.ObjectId,
-    _speakers: Schema.Types.Mixed,
-    _sponsors: Schema.Types.Mixed
+    venue: {
+        type:Schema.Types.ObjectId,
+        ref:'Venue'
+    },
+    speakers: Schema.Types.Mixed,
+    sponsors: Schema.Types.Mixed
 }, {
     collection: 'events'
 });
