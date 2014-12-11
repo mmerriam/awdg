@@ -2,10 +2,10 @@
 {% block title %}
     Venues
 {% endblock %}
+{% block admin %}
+    {% include "views/venues/create.html" %}
+{% endblock %}
 {% block content %}
-    <div class="admin clearfix">
-        {% include "views/venues/create.html" %}
-    </div>
     <div class="list">
         {% for venue in venues %}
             <a class="item" href="/venues/{{venue.id}}">
@@ -15,5 +15,4 @@
     </div>
 {% endblock %}
 {% block sidebar %}
-    <h2>Sidebar</h2>
 {% endblock %}

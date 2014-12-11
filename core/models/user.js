@@ -118,6 +118,7 @@ User.virtual('url').get(function() {
 User.set('toJSON', {
     transform: function(doc, ret, options) {
         delete ret.password;
+        delete ret.type;
         return ret;
     }
 });

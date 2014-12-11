@@ -17,19 +17,29 @@ var Venue = mongoose.model('Venue');
 var Attending = mongoose.model('Attending');
 var form = require('express-form');
 var field = form.field;
+var auth = awdg('client/routes/middleware/auth');
 
 router.param('id', function(req, res, next, id) {
     req.id = id;
     next();
 });
 
-
-router.get('/events', function(req, res, next) {
-    console.log(new Date());
-    res.render('events/index', {
+router.get('/events/:id', function(req, res, next) {
+    var userid = (req.user)?req.user.id: 'guest';
+    res.render('events/event-detail', {
         module: 'events',
-        venues: Venue.find(),
-        events: Event.find()
+        userid: userid,
+        event: Event.findOne({
+            '_id': req.id
+        }).populate('venue')
+    });
+});
+
+router.get('/events', auth.getUserRoles, function(req, res, next) {
+    res.render('events/event-list', {
+        module: 'events',
+        events: Event.find().populate('venue'),
+        roles: req._roles
     });
 });
 
@@ -45,32 +55,48 @@ router.post('/events', form(
     var start_date = new Date(req.form['start-date'] + ' ' + req.form['start-time']);
     var end_date = new Date(req.form['end-date'] + ' ' + req.form['end-time']);
     var params = {
-        name: req.form.name,
-        date: {
-            start: start_date,
-            end: end_date
-        },
-        _venue: req.form.venue,
-        description: req.form.description
-    }
-    // console.log(params);
+            name: req.form.name,
+            date: {
+                start: start_date,
+                end: end_date
+            },
+            venue: req.form.venue,
+            description: req.form.description
+        }
 
 
     var event = new Event(params);
     event.save(function(err) {
-        // if (err) return handleError(err);
         res.redirect('/events');
     });
 
 
 })
-router.get('/events/:id', function(req, res, next) {
-    res.render('events/detail', {
-        module: 'events',
-        event:Event.findOne({
-            '_id': req.id
-        }).populate('venue')
-    });
-});
+
+// router.post('/events/rsvp', form(
+//     field("userid").trim(),
+//     field("eventid").trim()
+// ), function(req, res, next) {
+//     // var start_date = new Date(req.form['start-date'] + ' ' + req.form['start-time']);
+//     // var end_date = new Date(req.form['end-date'] + ' ' + req.form['end-time']);
+//     // var params = {
+//     //         name: req.form.name,
+//     //         date: {
+//     //             start: start_date,
+//     //             end: end_date
+//     //         },
+//     //         venue: req.form.venue,
+//     //         description: req.form.description
+//     //     }
+
+
+//     var event = new Event(params);
+//     event.save(function(err) {
+//         res.redirect('/events');
+//     });
+
+
+// })
+
 
 module.exports = router;

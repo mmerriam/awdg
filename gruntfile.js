@@ -141,7 +141,7 @@ module.exports = function(grunt) {
                 tasks: ['copy'],
             },
             scripts: {
-                files: ['<%= dir.theme %>/javascript/*'],
+                files: ['<%= dir.theme %>/javascript/**/*'],
                 tasks: ['uglify'],
             },
         },

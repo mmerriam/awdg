@@ -1,0 +1,11 @@
+<div class="item">
+    <div class="col-md-8">
+        <a class="item" href="/events/{{event.id}}"><h3>{{event.name}}</h3></a>
+        <div class="meta-info">
+            <p class="meta-date-time">{{event.date.start|date('F d, Y . g:ia',300)}} // <a href="/venues/{{event.venue.id}}">{{event.venue.name}}</a> </p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        {# <img src="http://placehold.it/300x300"> #}
+    </div>
+</div>

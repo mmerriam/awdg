@@ -34,7 +34,7 @@ router.get('/account/settings', auth.requiresLogin, function(req, res, next) {
 router.get('/account/subscription', auth.requiresLogin, function(req, res, next) {
     res.render('users/account-subscription', {
         module: 'users',
-        member: req.user
+        user: req.user
     });
 });
 

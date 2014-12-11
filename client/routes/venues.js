@@ -5,7 +5,7 @@
  *
  * @copyright Atlanta Web Design Group 2014
  *
- * Location Routes
+ * Venue Routes
  */
 
 var express = require('express');
@@ -14,16 +14,18 @@ var mongoose = require('mongoose');
 var Venue = mongoose.model('Venue');
 var form = require('express-form');
 var field = form.field;
+var auth = awdg('client/routes/middleware/auth');
 
 router.param('id', function(req, res, next, id) {
     req.id = id;
     next();
 });
 
-router.get('/venues', function(req, res, next) {
-    res.render('venues/index', {
+router.get('/venues', auth.getUserRoles, function(req, res, next) {
+    res.render('venues/venue-list', {
         module: 'venue',
-        venues: Venue.find()
+        venues: Venue.find(),
+        roles:req._roles
     });
 });
 
@@ -42,12 +44,13 @@ router.post('/venues', form(
     });
 });
 
-router.get('/venues/:id', function(req, res, next) {
-    res.render('venues/item', {
+router.get('/venues/:id',auth.getUserRoles, function(req, res, next) {
+    res.render('venues/venue-detail', {
         module: 'venue',
         venue: Venue.findOne({
             '_id': req.id
-        })
+        }),
+        roles:req._roles
     });
 });
 

@@ -56,7 +56,9 @@ module.exports = function(passport) {
             );
         }));
 
-    // join
+    /**
+     * Join with a email and password
+     */
     passport.use('local-join', new LocalStrategy({
             usernameField: 'email',
             passReqToCallback: true
@@ -80,7 +82,8 @@ module.exports = function(passport) {
                     });
 
                     user.save(function(err) {
-                        if (err) return done(err, false, req.flash('error', 'Error saving user.'));
+                        if (err) return done(err, false, req.flash('error', 'Error saving member.'));
+
                         return done(null, user, req.flash('success', 'Thanks for signing up!!'));
                     });
                 });
