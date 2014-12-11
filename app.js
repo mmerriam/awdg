@@ -8,36 +8,35 @@
  */
 
 var express = require('express');
-var logger = require('morgan');
 var path = require('path');
-var app = express();
 
+var app = express();
 /**
  * Global helper function that enables us to require
  * our own modules relative to root path.
  *
  */
 global.awdg = function(name) {
-    return require(path.join(__dirname ,'/',name));
+    return require(path.join(__dirname, '/', name));
 }
 
 
-/**
- * Set the logger
- */
-app.use(logger('dev'));
-
-/**
- * Use Express Promises
- */
-app.use(require('express-promise')());
 
 /**
  * Core
  *
  * Mount the core app
  */
-awdg('core');
+var core = awdg('core');
+
+/**
+ * API
+ *
+ * Mount the API
+ */
+var api = awdg('api/app');
+app.use('/api', api);
+
 
 
 /**
@@ -45,9 +44,9 @@ awdg('core');
  *
  * Mount the client app
  */
-awdg('client')(app);
 
-
+var client = awdg('client/app');
+app.use('/', client);
 
 
 module.exports = app;
