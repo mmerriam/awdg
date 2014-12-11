@@ -1,11 +1,15 @@
 {% extends "layouts/right-menu.html" %}
-{% block title %} Home {% endblock %}
+{% block title %}
+    Home
+{% endblock %}
 {% block content %}
-<div class="events-list">
-    <h2>Content</h2>
-    {% include "views/events/event-featured.html" %}
-</div>
+    <div class="events-list">
+        <h2>Featured Event</h2>
+        {% for event in events %}
+            {% include "views/events/event-featured.html" %}
+        {% endfor %}
+    </div>
 {% endblock %}
 {% block sidebar %}
-<h2>Sidebar</h2>
+
 {% endblock %}
