@@ -56,8 +56,8 @@ var User = new Schema({
         tags: Array
     },
     type: {
-        type: String,
-        required: true
+        type: Array,
+        default: ['member']
     }
 }, {
     collection: 'users'

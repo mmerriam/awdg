@@ -12,7 +12,6 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var Event = mongoose.model('Event');
-var Member = mongoose.model('Member');
 
 router.get('/', function(req, res, next) {
     res.render('home/index', {

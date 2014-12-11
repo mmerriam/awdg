@@ -52,7 +52,7 @@ module.exports = function(app) {
      */
     var home = awdg('client/routes/home');
     var events = awdg('client/routes/events');
-    var members = awdg('client/routes/members');
+    var users = awdg('client/routes/users');
     var venues = awdg('client/routes/venues');
 
 
@@ -74,7 +74,7 @@ module.exports = function(app) {
      */
     app.use('/', home);
     app.use('/', events);
-    app.use('/', members);
+    app.use('/', users);
     app.use('/', venues);
 
     /**
