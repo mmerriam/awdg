@@ -10,7 +10,7 @@
  */
 
 var mongoose = require('mongoose');
-var Member = mongoose.model('Member');
+var User = mongoose.model('User');
 var LocalStrategy = require('passport-local').Strategy;
 var form = require('express-form');
 var field = form.field;
@@ -18,14 +18,14 @@ var field = form.field;
 
 module.exports = function(passport) {
 
-    passport.serializeUser(function(member, done) {
-        done(null, member.id);
+    passport.serializeUser(function(user, done) {
+        done(null, user.id);
     });
 
     passport.deserializeUser(function(id, done) {
 
-        Member.findById(id, function(err, member) {
-            done(err, member);
+        User.findById(id, function(err, user) {
+            done(err, user);
         });
 
     });
@@ -36,19 +36,18 @@ module.exports = function(passport) {
             passReqToCallback: true
         },
         function(req, email, password, done) {
-            console.log(email);
-            Member.findOne({
+            User.findOne({
                     'email': email
                 },
-                function(err, member) {
+                function(err, user) {
                     if (err) return done(err);
-                    if (!member) {
+                    if (!user) {
                         return done(null, false, req.flash('error', 'User not found'));
                     }
 
-                    member.authenticate(password, function(err, isMatch) {
+                    user.authenticate(password, function(err, isMatch) {
                         if (isMatch) {
-                            return done(null, member, req.flash('success', 'Successfully logged in.'));
+                            return done(null, user, req.flash('success', 'Successfully logged in.'));
                         } else {
                             return done(null, false, req.flash('error', 'Invalid Password'));
                         }
@@ -63,31 +62,31 @@ module.exports = function(passport) {
             passReqToCallback: true
         },
         function(req, email, password, done) {
-            var findOrCreateMember = function() {
+            var findOrCreateUser = function() {
 
-                Member.findOne({
+                User.findOne({
                     email: req.body.email
-                }, function(err, existingMember) {
-                    if (existingMember) {
+                }, function(err, existingUser) {
+                    if (existingUser) {
                         req.flash('form', {
                             email: req.body.email
                         });
-                        return done(null, false, req.flash('error', 'A member account with that email address already exists.'));
+                        return done(null, false, req.flash('error', 'A user account with that email address already exists.'));
                     }
                     // edit this portion to accept other properties when creating a user.
-                    var member = new Member({
+                    var user = new User({
                         email: req.body.email,
-                        password: req.body.password // member schema pre save task hashes this password
+                        password: req.body.password,
                     });
 
-                    member.save(function(err) {
-                        if (err) return done(err, false, req.flash('error', 'Error saving member.'));
-                        return done(null, member, req.flash('success', 'Thanks for signing up!!'));
+                    user.save(function(err) {
+                        if (err) return done(err, false, req.flash('error', 'Error saving user.'));
+                        return done(null, user, req.flash('success', 'Thanks for signing up!!'));
                     });
                 });
             };
 
-            process.nextTick(findOrCreateMember);
+            process.nextTick(findOrCreateUser);
 
         }));
 };

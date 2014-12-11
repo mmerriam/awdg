@@ -15,13 +15,15 @@ var Schema = mongoose.Schema;
 var stampIt = require('mongoose-stamp');
 
 var Attending = new Schema({
-    _event: {
+    event: {
         type: Schema.Types.ObjectId,
-        required: true
+        required: true,
+        ref:'Event'
     },
-    _member: {
+    member: {
         type: Schema.Types.ObjectId,
-        required: true
+        required: true,
+        ref:'Member'
     },
     guestCount:Number,
     updatedOn:Date

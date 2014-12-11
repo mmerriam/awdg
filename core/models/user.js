@@ -5,7 +5,7 @@
  *
  * @copyright awdg.org 2014
  *
- * Member
+ * User
  */
 
 var mongoose = require('mongoose');
@@ -14,7 +14,7 @@ var stampIt = require('mongoose-stamp');
 var bcrypt = require('bcrypt');
 
 
-var Member = new Schema({
+var User = new Schema({
     name: {
         first: {
             type: String,
@@ -46,17 +46,21 @@ var Member = new Schema({
             default: {}
         },
         bio: String,
-        company:String,
-        title:String,
-        website:String,
+        company: String,
+        title: String,
+        website: String,
         forHire: {
             type: Boolean,
             default: false
         },
         tags: Array
+    },
+    type: {
+        type: Array,
+        default: ['member']
     }
 }, {
-    collection: 'members'
+    collection: 'users'
 });
 
 
@@ -65,7 +69,7 @@ var Member = new Schema({
  * Presave Middleware
  *
  */
-Member.pre('save', function(next) {
+User.pre('save', function(next) {
     var member = this;
     if (!member.isModified('password')) return next();
     bcrypt.genSalt(10, function(err, salt) {
@@ -89,7 +93,7 @@ Member.pre('save', function(next) {
  * @param  {Function} cb
  * @return {Boolean}
  */
-Member.methods.authenticate = function(candidatePassword, cb) {
+User.methods.authenticate = function(candidatePassword, cb) {
     bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
         if (err) return cb(err);
         cb(null, isMatch);
@@ -99,24 +103,24 @@ Member.methods.authenticate = function(candidatePassword, cb) {
 /**
  * Virtuals
  */
-Member.virtual('name.full').get(function() {
+User.virtual('name.full').get(function() {
     return this.name.first + ' ' + this.name.last;
 });
 
 
-Member.virtual('url').get(function() {
+User.virtual('url').get(function() {
     return '/' + this.id;
 })
 
 /**
  * Return a json object without passwords and such
  */
-Member.set('toJSON', {
+User.set('toJSON', {
     transform: function(doc, ret, options) {
         delete ret.password;
         return ret;
     }
 });
 
-Member.plugin(stampIt);
-mongoose.model('Member', Member);
+User.plugin(stampIt);
+mongoose.model('User', User);

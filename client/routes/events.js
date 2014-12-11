@@ -12,7 +12,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var Event = mongoose.model('Event');
-var Member = mongoose.model('Member');
+var User = mongoose.model('User');
 var Venue = mongoose.model('Venue');
 var Attending = mongoose.model('Attending');
 var form = require('express-form');
@@ -25,6 +25,7 @@ router.param('id', function(req, res, next, id) {
 
 
 router.get('/events', function(req, res, next) {
+    console.log(new Date());
     res.render('events/index', {
         module: 'events',
         venues: Venue.find(),
@@ -41,16 +42,19 @@ router.post('/events', form(
     field("venue").trim(),
     field("description")
 ), function(req, res, next) {
-
+    var start_date = new Date(req.form['start-date'] + ' ' + req.form['start-time']);
+    var end_date = new Date(req.form['end-date'] + ' ' + req.form['end-time']);
     var params = {
         name: req.form.name,
         date: {
-            start: new Date(req.form['start-date'] + ' ' + req.form['start-time']),
-            end: new Date(req.form['end-date'] + ' ' + req.form['end-time'])
+            start: start_date,
+            end: end_date
         },
         _venue: req.form.venue,
         description: req.form.description
     }
+    // console.log(params);
+
 
     var event = new Event(params);
     event.save(function(err) {
@@ -61,12 +65,11 @@ router.post('/events', form(
 
 })
 router.get('/events/:id', function(req, res, next) {
-    console.log(req.id);
     res.render('events/detail', {
         module: 'events',
         event:Event.findOne({
             '_id': req.id
-        })
+        }).populate('venue')
     });
 });
 
