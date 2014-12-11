@@ -22,7 +22,7 @@ router.param('id', function(req, res, next, id) {
 });
 
 router.get('/venues', auth.getUserRoles, function(req, res, next) {
-    res.render('venues/index', {
+    res.render('venues/venue-list', {
         module: 'venue',
         venues: Venue.find(),
         roles:req._roles
@@ -45,7 +45,7 @@ router.post('/venues', form(
 });
 
 router.get('/venues/:id',auth.getUserRoles, function(req, res, next) {
-    res.render('venues/item', {
+    res.render('venues/venue-detail', {
         module: 'venue',
         venue: Venue.findOne({
             '_id': req.id

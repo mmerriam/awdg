@@ -24,12 +24,19 @@ router.param('id', function(req, res, next, id) {
     next();
 });
 
+router.get('/events/:id', function(req, res, next) {
+    res.render('events/event-detail', {
+        module: 'events',
+        event: Event.findOne({
+            '_id': req.id
+        }).populate('venue')
+    });
+});
 
 router.get('/events', auth.getUserRoles, function(req, res, next) {
-    res.render('events/index', {
+    res.render('events/event-list', {
         module: 'events',
-        venues: Venue.find(),
-        events: Event.find(),
+        events: Event.find().populate('venue'),
         roles: req._roles
     });
 });
@@ -51,7 +58,7 @@ router.post('/events', form(
                 start: start_date,
                 end: end_date
             },
-            _venue: req.form.venue,
+            venue: req.form.venue,
             description: req.form.description
         }
         // console.log(params);
@@ -64,13 +71,6 @@ router.post('/events', form(
 
 
 })
-router.get('/events/:id', function(req, res, next) {
-    res.render('events/detail', {
-        module: 'events',
-        event: Event.findOne({
-            '_id': req.id
-        }).populate('venue')
-    });
-});
+
 
 module.exports = router;
