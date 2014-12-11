@@ -25,46 +25,23 @@ var core = awdg('core');
 var app = express();
 
 
-/**
- * Set the logger
- */
 app.use(logger('dev'));
-
-
-/**
- * Use Express Promises
- */
 app.use(require('express-promise')());
 
-
-
-/**
- * Load Routes
- */
-var home = awdg('api/routes/home');
-// var events = awdg('api/routes/events');
-var users = awdg('api/routes/users');
-// var venues = awdg('api/routes/venues');
-
-
-
-/**
- * Express Settings
- */
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
 }));
 
 
-app.use(express.static(path.join(config.root, '/public')));
+
 
 /**
- * Use the routes
+ * Mount the routes
  */
-app.use('/', home);
-// app.use('/', events);
-// app.use('/', users);
+app.use('/', awdg('api/routes/home'));
+app.use('/', awdg('api/routes/events'));
+app.use('/', awdg('api/routes/users'));
 // app.use('/', venues);
 
 /**

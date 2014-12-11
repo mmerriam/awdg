@@ -25,8 +25,10 @@ router.param('id', function(req, res, next, id) {
 });
 
 router.get('/events/:id', function(req, res, next) {
+    var userid = (req.user)?req.user.id: 'guest';
     res.render('events/event-detail', {
         module: 'events',
+        userid: userid,
         event: Event.findOne({
             '_id': req.id
         }).populate('venue')
@@ -61,7 +63,6 @@ router.post('/events', form(
             venue: req.form.venue,
             description: req.form.description
         }
-        // console.log(params);
 
 
     var event = new Event(params);
@@ -71,6 +72,31 @@ router.post('/events', form(
 
 
 })
+
+// router.post('/events/rsvp', form(
+//     field("userid").trim(),
+//     field("eventid").trim()
+// ), function(req, res, next) {
+//     // var start_date = new Date(req.form['start-date'] + ' ' + req.form['start-time']);
+//     // var end_date = new Date(req.form['end-date'] + ' ' + req.form['end-time']);
+//     // var params = {
+//     //         name: req.form.name,
+//     //         date: {
+//     //             start: start_date,
+//     //             end: end_date
+//     //         },
+//     //         venue: req.form.venue,
+//     //         description: req.form.description
+//     //     }
+
+
+//     var event = new Event(params);
+//     event.save(function(err) {
+//         res.redirect('/events');
+//     });
+
+
+// })
 
 
 module.exports = router;

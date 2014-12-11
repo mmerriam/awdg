@@ -15,7 +15,8 @@ var Event = mongoose.model('Event');
 
 router.get('/', function(req, res, next) {
     res.render('home/index', {
-        module: 'home'
+        module: 'home',
+        events: Event.find().populate('venue'),
     });
 })
 

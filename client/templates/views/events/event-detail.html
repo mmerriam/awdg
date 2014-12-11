@@ -2,9 +2,6 @@
 {% block title %}
     Events
 {% endblock %}
-{% block admin %}
-    {# {% include "views/events/edit.html" %} #}
-{% endblock %}
 {% block content %}
     {% include "views/events/event-item.html" %}
 {% endblock %}
@@ -13,8 +10,8 @@
 {% endblock %}
 {% block js %}
     <script type="text/javascript">
-        var event = {{ event|json|raw }};
-        console.log(event);
+        var event = {{ event|json|safe }};
+        var userid = {{ userid|json|safe }};
     </script>
     <script type="text/javascript" src="/js/events.js"></script>
 {% endblock %}
