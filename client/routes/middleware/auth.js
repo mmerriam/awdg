@@ -7,24 +7,40 @@
  * Auth Middleware
  */
 
+
+var _ = require('lodash');
+
 /**
- * Authenticated
- * Check to see if the visitor is authenticated
+ * Requires Login
+ * Use for routes that requires a loged in user
  */
 exports.requiresLogin = function(req, res, next) {
-    if (req.isAuthenticated()) return next()
+    if (req.isAuthenticated())
+        return next()
     if (req.method == 'GET') req.session.returnTo = req.originalUrl;
     res.redirect('/login');
 }
 
-/*
- *  User authorization routing middleware
+/**
+ * Get User Roles
+ * Check and assign user roles
  */
-// exports.user = {
-//   hasAuthorization: function (req, res, next) {
-//     if (req.profile.id != req.user.id) {
-//       req.flash('info', 'You are not authorized')
-//       return res.redirect('/users/' + req.profile.id)
-//     }
-//     next()
-//   }
+exports.getUserRoles = function(req, res, next) {
+
+    var _roles = {
+        isMember: false,
+        isAdmin: false,
+        isSpeaker: false
+    };
+
+    if (req.user) {
+        var _roles = {
+            isMember: _.contains(req.user.type, 'member'),
+            isAdmin: _.contains(req.user.type, 'admin'),
+            isSpeaker: _.contains(req.user.type, 'speaker')
+        };
+    }
+
+    req._roles = _roles;
+    return next();
+}

@@ -2,10 +2,10 @@
 {% block title %}
     Events
 {% endblock %}
+{% block admin %}
+    {% include "views/events/create.html" %}
+{% endblock %}
 {% block content %}
-    <div class="admin clearfix">
-        {% include "views/events/create.html" %}
-    </div>
     <div class="list">
         {% for event in events %}
             <a class="item" href="/events/{{event.id}}">
@@ -18,5 +18,9 @@
     <h2>Sidebar</h2>
 {% endblock %}
 {% block js %}
-  <script type="text/javascript" src="/js/events.js"></script>
+    <script type="text/javascript">
+        var roles = {{ roles|json|safe }};
+        console.log(roles);
+    </script>
+    <script type="text/javascript" src="/js/events.js"></script>
 {% endblock %}

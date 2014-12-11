@@ -12,19 +12,27 @@
     <div id="wrap">
         {% include "views/common/nav.html" %}
         <div class="two-col">
+            {% if roles.isAdmin %}
+                <div class="admin">
+                    {% block admin %}
+                    {% endblock %}
+                </div>
+            {% endif %}
             <div class="{{ module }}">
                 <section  role="content">
-                    {% block content %}{% endblock %}
+                    {% block content %}
+                    {% endblock %}
                 </section>
                 <aside role="sidebar">
-                    {% block sidebar %}{% endblock %}
+                    {% block sidebar %}
+                    {% endblock %}
                 </aside>
             </div>
         </div>
     </div>
     {% include "views/common/footer.html" %}
-<script type="text/javascript" src="/js/libs.min.js"></script>
-{% block js %}
-{% endblock %}
+    <script type="text/javascript" src="/js/libs.min.js"></script>
+    {% block js %}
+    {% endblock %}
 </body>
 </html>
