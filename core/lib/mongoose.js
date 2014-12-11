@@ -14,7 +14,7 @@ var mongoose = require('mongoose');
 
 // load models
 awdg('core/models/event');
-awdg('core/models/member');
+awdg('core/models/user');
 awdg('core/models/attending');
 awdg('core/models/venue');
 
