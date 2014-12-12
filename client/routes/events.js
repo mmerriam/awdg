@@ -39,6 +39,7 @@ router.get('/events', auth.getUserRoles, function(req, res, next) {
     res.render('events/event-list', {
         module: 'events',
         events: Event.find().populate('venue'),
+        venues: Venue.find(),
         roles: req._roles
     });
 });
