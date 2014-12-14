@@ -9,9 +9,9 @@
  */
 
 var express = require('express');
+var core = require('awdg-core');
 var router = express.Router();
-var mongoose = require('mongoose');
-var Event = mongoose.model('Event');
+var Event = core.database.models.Event;
 
 router.get('/', function(req, res, next) {
     res.render('home/index', {

@@ -5,28 +5,23 @@
  *
  * @copyright Atlanta Web Design Group 2014
  *
- * Core
- * Mount global modules here
- *
- *
  */
 
-// mailchimp
-// stripe
-// hull
-//
 
-var config = awdg('core/lib/config');
+
+var config = require('./lib/config');
 /**
  * Database
  * Load the mongoose instance
  */
-var database = awdg('core/lib/mongoose')(config);
+var database = require('./lib/database')(config);
 
 var core = {
     database: database,
-    mail:{},
-    hull:{},
-    stripe:{}
+    services: {
+        mail: {},
+        stripe: {},
+        meetup: {}
+    }
 }
 module.exports = core;

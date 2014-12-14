@@ -9,12 +9,14 @@
  */
 
 var express = require('express');
-var router = express.Router();
+var core = require('awdg-core');
 var passport = require('passport');
-var mongoose = require('mongoose');
-var Event = mongoose.model('Event');
-var User = mongoose.model('User');
-var auth = awdg('client/routes/middleware/auth');
+var form = require('express-form');
+var auth = require('./middleware/auth');
+var router = express.Router();
+var User = core.database.models.User;
+var Event = core.database.models.Event;
+var field = form.field;
 
 
 router.get('/account/profile', auth.checkLogin, function(req, res, next) {

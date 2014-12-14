@@ -13,10 +13,10 @@
 var mongoose = require('mongoose');
 
 // load models
-awdg('core/models/event');
-awdg('core/models/user');
-awdg('core/models/attending');
-awdg('core/models/venue');
+require('./models/event');
+require('./models/user');
+require('./models/attending');
+require('./models/venue');
 
 
 module.exports = function(config) {

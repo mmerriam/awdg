@@ -9,12 +9,13 @@
  */
 
 var express = require('express');
-var router = express.Router();
-var mongoose = require('mongoose');
-var Venue = mongoose.model('Venue');
+var core = require('awdg-core');
 var form = require('express-form');
+var auth = require('./middleware/auth');
+var router = express.Router();
+var Venue = core.database.models.Venue;
 var field = form.field;
-var auth = awdg('client/routes/middleware/auth');
+
 
 router.param('id', function(req, res, next, id) {
     req.id = id;

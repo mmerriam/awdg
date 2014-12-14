@@ -27,19 +27,6 @@ dotenv.load();
 var pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
 
 var config = {
-    name: pkg.name,
-    env: process.env.NODE_ENV || 'development',
-    port: process.env.PORT || 2934,
-    root: path.normalize(path.join(__dirname, '../..')),
-    session: {
-        name: '_awdg',
-        secret: 'i<3th3W3b',
-        resave: false,
-        saveUninitialized: false,
-        cookie: {
-            maxAge: 6000000,
-        }
-    },
     database: {
         uri: process.env.DATABASE_URI || 'mongodb://127.0.0.1/awdg',
         options: {
@@ -70,11 +57,6 @@ var config = {
         meetup: {
             apiKey: process.env.MEETUP_API_KEY || ''
         },
-        hull: {
-            appId: process.env.HULL_APP_ID || '',
-            orgUrl: process.env.HULL_ORG_URL || '',
-            appSecret: process.env.HULL_APP_SECRET || ''
-        }
 
     }
 }
