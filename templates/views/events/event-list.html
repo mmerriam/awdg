@@ -1,0 +1,22 @@
+{% extends "layouts/right-menu.html" %}
+{% block title %}
+    Events
+{% endblock %}
+{% block admin %}
+    {% include "views/events/create.html" %}
+{% endblock %}
+{% block content %}
+    {% for event in events %}
+        {% include "views/events/event-summary.html" %}
+    {% endfor %}
+{% endblock %}
+{% block sidebar %}
+
+{% endblock %}
+{% block js %}
+    <script type="text/javascript">
+        var events = {{events|json|safe}};
+        console.log(events);
+    </script>
+    <script type="text/javascript" src="/js/events.js"></script>
+{% endblock %}

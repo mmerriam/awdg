@@ -1,0 +1,18 @@
+{% extends "layouts/right-menu.html" %}
+{% block title %}
+    Events
+{% endblock %}
+{% block content %}
+    {% include "views/events/event-item.html" %}
+{% endblock %}
+{% block sidebar %}
+
+{% endblock %}
+{% block js %}
+    <script type="text/javascript">
+        var _event = {{ _event|json|safe }};
+        var userid = {{ userid|json|safe }};
+
+    </script>
+    <script type="text/javascript" src="/js/events.js"></script>
+{% endblock %}

@@ -1,0 +1,42 @@
+<div class="col-md-6">
+    <form role="form" method="post" action="/events">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" placeholder="Name" id="name" name="name" required autofocus>
+        </div>
+        <div class="form-group">
+            <label for="start-date">Start Date</label>
+            <input type="text" class="form-control" id="start-date" name="start-date" autofocus>
+        </div>
+        <div class="form-group">
+            <label for="start-time">Start Time</label>
+            <input type="time" class="form-control" placeholder="03:30 PM" id="start-time" name="start-time" autofocus>
+        </div>
+        <div class="form-group">
+
+            <label for="end-date">End Date</label>
+            <input type="text" class="form-control" id="end-date" name="end-date" autofocus>
+
+        </div>
+        <div class="form-group">
+            <label for="end-time">End Time</label>
+            <input type="time" class="form-control" placeholder="03:30 PM" id="end-time" name="end-time" autofocus>
+        </div>
+        <div class="form-group">
+            <label for="venue">Venue</label>
+            <select class="form-control" id="venue" name="venue">
+                {% for venue in venues %}
+                <option value="{{venue.id}}">{{venue.name}}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="info">Description</label>
+            <textarea class="form-control" rows="4" name="description" id="description"></textarea>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-lg btn-primary" type="submit">Add Event</button>
+        </div>
+    </form>
+</div>

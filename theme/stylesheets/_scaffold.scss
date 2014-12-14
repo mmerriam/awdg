@@ -1,0 +1,84 @@
+// scaffold.scss
+
+html,body {
+  height: 100%;
+}
+
+#wrap {
+  min-height: 100%;
+  height: auto;
+  margin: 0 auto (-$footerheight);
+  padding: 0 0 $footerheight;
+}
+
+main {
+ @extend .container;
+ padding-top:$navbar-height + 40px;
+ padding-bottom: 5em;
+ >div {
+   @include make_row();
+   section {
+     @include make-sm-column(8);
+   }
+   aside {
+     @include make-sm-column(3);
+     @extend .col-sm-offset-1;
+   }
+ }
+}
+
+// Buttons
+.btn {
+  min-width: 200px;
+}
+
+
+// Tables
+
+.table>thead>tr>th,
+.table>thead>tr>td,
+.table>tbody>tr>th,
+.table>tbody>tr>td,
+.table>tfoot>tr>th,
+.table>tfoot>tr>td {
+  padding: 10px 25px;
+  border-top: 2px solid $table-border-color;
+}
+
+.table-bordered>thead:first-child>tr:first-child>th,
+.table-bordered>thead>tr>th,
+.table-bordered>thead>tr>td,
+.table-bordered>tbody>tr>th,
+.table-bordered>tbody>tr>td,
+.table-bordered>tfoot>tr>th,
+.table-bordered>tfoot>tr>td {
+  border: 2px solid $table-border-color;
+}
+
+// FOOTER
+
+footer {
+  height: $footerheight;
+  margin: 0;
+  padding: 1em 0;
+}
+
+// Responsive
+
+@mixin breakpoint($point) {
+  @if $point == lg {
+    @media (min-width: $screen-lg-min) { @content; }
+  }
+  @else if $point == md {
+    @media (min-width: $screen-md-min) and (max-width: $screen-md-max) { @content; }
+  }
+  @else if $point == sm {
+    @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) { @content; }
+  }
+  @else if $point == xs {
+    @media (max-width: $screen-xs-max) { @content; }
+  }
+  @else if $point == nano {
+    @media (max-width: 320px) { @content; }
+  }
+}
