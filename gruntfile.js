@@ -4,8 +4,8 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('bower.json'),
         dir: {
             publish: 'public',
-            theme: 'client/theme',
-            build: 'client/.build',
+            theme: 'theme',
+            build: '.build',
             vendor: {
                 bower: 'bower_components'
             }
@@ -141,7 +141,7 @@ module.exports = function(grunt) {
                 tasks: ['copy'],
             },
             scripts: {
-                files: ['<%= dir.theme %>/javascript/**/*'],
+                files: ['<%= dir.theme %>/javascripts/**/*'],
                 tasks: ['uglify'],
             },
         },
